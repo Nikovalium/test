@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+</head>
+<body>
+  
+<style>
+  body 
+  {font-family: Arial;}
+
+  .statButton {
+    background-color: rgb(244, 244, 244);
+    font-weight: bold;
+    cursor: pointer;
+    border-color: rgb(180, 180, 180);   
+    border-radius: 6px;
+    padding: 1%;
+    margin-left: 2%;
+    
+  }
+
+</style>
+ 
+  <p id="stamina">Stamina: 0 
+    <button onclick="increaseSta()" 
+      class="statButton">
+      Sleep</button>
+  </p>
+  
+  <p id="hunger">Hunger: 30 
+    <button onclick="increaseHunger()" 
+      class="statButton">
+      Get something to eat</button>
+  </p>
+   
+  <p id="gold">Gold: 0 
+    <button onclick="increaseGold()" 
+      class="statButton">
+      Beg for change</button>
+  </p>
+  
+  <p id="strength">Strength: 1 
+    <button onclick="increaseStr()" 
+      class="statButton">
+      Lift weights</button>
+  </p>
+   
+  <script>
+    let sta = 0;
+    let str = 1;
+    let gold = 0;
+    let pouch = 10;
+    let hunger = 30;
+
+    function increaseSta(){
+      if (sta < 100) {
+        sta += 20;        
+      } else if (sta >= 100){
+        sta = 100;
+        alert('Stamina is full');      
+        } 
+      document.getElementById("stamina").innerHTML = `Stamina: ${sta} 
+      <button onclick="increaseSta()" class="statButton">Sleep</button>`;
+    }
+      
+    function increaseStr(){
+      if (str < 100) {
+        if (sta >= 20){
+          if (hunger >=30) {
+            str ++;
+            sta -= 20;
+            hunger -= 30;
+          } else if ( hunger < 30){
+            alert('Cant do that you are starving');
+          } 
+        }else if (sta < 20){
+            alert('Not enough stamina');         
+         } 
+      }else if (str >= 100){
+            str = 100;
+            alert('Strenght is full');
+       }
+          document.getElementById("strength").innerHTML = `Strength: ${str} 
+          <button onclick="increaseStr()" class="statButton">Lift weights</button>`;
+          document.getElementById("stamina").innerHTML = `Stamina: ${sta} 
+          <button onclick="increaseSta()" class="statButton">Sleep</button>`;
+          document.getElementById("hunger").innerHTML = `Hunger: ${hunger} 
+          <button onclick="increaseHunger()" class="statButton">Get something to eat</button>`;
+    }
+
+    function increaseGold(){
+      if (gold < pouch) {
+        if (sta >= 20){
+        gold += 0.50;
+        sta -= 20;
+        } else if (sta < 15){
+        alert('Not enough stamina');
+          } 
+      document.getElementById("stamina").innerHTML = `Stamina: ${sta}
+      <button onclick="increaseSta()" class="statButton">Sleep</button>`;
+      } 
+      document.getElementById("gold").innerHTML = `Gold: ${gold} 
+      <button onclick="increaseGold()" class="statButton">Beg for change</button>`;
+    }
+
+    function increaseHunger(){
+      if (hunger + 60 >= 100) {
+        hunger = 100;
+        alert('You are not hungry');
+      }else if (hunger + 60 <= 100){
+        hunger +=60;
+       }
+      document.getElementById("hunger").innerHTML = `Hunger: ${hunger} 
+      <button onclick="increaseHunger()" class="statButton">Get something to eat</button>`;
+    }
+  </script>
+
+</body>
+</html>
